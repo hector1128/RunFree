@@ -40,6 +40,7 @@ while i > 0:
         while True:
             login_2U = input("Username: ")
             login_2P = input("Password: ")
+            print("")
             # Getting user input and extracting it from "user" database (U and P)
             cur.execute("SELECT username FROM user WHERE username=?", (login_2U,))
             con.commit()
@@ -47,9 +48,11 @@ while i > 0:
             cur.execute("SELECT password FROM user WHERE password=?", (login_2P,))
             con.commit()
             user_pw=cur.fetchone()
+            seconds(3)
             # If login is correct, BAAAAANG
             if username is not None and user_pw is not None:
-                print(f"Welcome to RunFree, {login_2U}!") 
+                print(f"Welcome to RunFree, {login_2U}!\n") 
+                seconds(3)
                 break
             elif username is None:
                 print("Username not found. Try again")
@@ -87,43 +90,54 @@ while i > 0:
 
 # IF USER HAS NO RUNNING PLAN--------------------------------------------------------------------------------------------------------------------------
 
-if login_1U: #doesnt have table:
+if True: #if login_1U: #doesnt have table:
+    seconds(3)
     print("It seems you're new here! Let me introduce you to RunFree... \n")
     seconds(3)
     print("blah blah blah\n")
     seconds(3)
-    print("Ready to get started?")
+    print("Ready to get started?\n")
     seconds(3)
     while True:
-        continue_no_plan1=input("Type \"Y\" to begin building the right plan for YOU!")
+        continue_no_plan1=input("Type \"Y\" to begin building the right plan for YOU!\n")
         if continue_no_plan1=="Y":
-            print("poop")
             break
         else:
             print("make sure you type capital \"Y\" to get started!!!")
 
     # Gathering info on USERRRR
-    print(f"Great! Let's gather some personal info so we can make the perfect plan tailored for you, {login_1U}.\n")
-
-    # AGE ()
+    print(f"Great! Let's gather some personal info so we can make the perfect plan tailored for you, {login_2U}.\n")
+    seconds(3)
+    # AGE 
     age=int(input("How old are you?\n"))
+    seconds(3)
 
     # GENDER (Male, Female, Other)
     while True:
         print("What's your gender?\n")
-        gender=input("Type \"Male\", \"Female\", or\"Other\"\n") 
+        seconds(2)
+        gender=input("Type \"Male\", \"Female\", or\"Other\"\n")
+        seconds(3) 
         if gender=="Male" or gender=="Female" or gender=="Other":
+            seconds(3)
             break
         else:
             print("Make sure you type the word exactly as it shows!!!")
+            seconds(3)
 
     # RUNNING EXPERTISE (Begginer, Intermediate, Advanced)
     while True:
         print("How experienced are you?")
-        r_s=("\"Beginner\", \"Intermediate\", or \"Advanced\"\nPs. Don't know? Type \"I\" to figure out what you should pick!\n")
+        seconds(3)
+        r_s=input("\"Beginner\", \"Intermediate\", or \"Advanced\"\nPs. Don't know? Type \"I\" to figure out what you should pick!\n")
+        seconds(3)
         if r_s=="I":
             print("Blah")
-        elif r_s=="Beginner" or r_s=="Beginner" or r_s=="Beginner":
+            seconds(3)
+            print("Now that you know...")
+            seconds(3)
+        elif r_s=="Beginner" or r_s=="Intermediate" or r_s=="Advanced":
+            seconds(3)
             break
         else:
             print("Make sure you type the word exactly as it shows!!!")
