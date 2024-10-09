@@ -36,24 +36,28 @@ reset = "N/A"
 while i > 0:
     if login_1 == "Y" or reset == "Y":
         login_1="N/A"
-        login_2U = input("Username: ")
-        login_2P = input("Password: ")
-        # Getting user input and extracting it from "user" database (U and P)
-        cur.execute("SELECT username FROM user WHERE username=?", (login_2U,))
-        con.commit()
-        username=cur.fetchone()
-        cur.execute("SELECT password FROM user WHERE password=?", (login_2P,))
-        con.commit()
-        user_pw=cur.fetchone()
-        # If login is correct, BAAAAANG
-        if username is not None and user_pw is not None:
-            print(f"Welcome to RunFree, {login_2U}!") 
-            i -= 1
-        elif user_pw is None:
-            print("Incorrect password. Try again")
-        elif username is None:
-            print("Username not found. Try again")
-            
+        # Another while loop to keep trying if username is incorrect
+        while True:
+            login_2U = input("Username: ")
+            login_2P = input("Password: ")
+            # Getting user input and extracting it from "user" database (U and P)
+            cur.execute("SELECT username FROM user WHERE username=?", (login_2U,))
+            con.commit()
+            username=cur.fetchone()
+            cur.execute("SELECT password FROM user WHERE password=?", (login_2P,))
+            con.commit()
+            user_pw=cur.fetchone()
+            # If login is correct, BAAAAANG
+            if username is not None and user_pw is not None:
+                print(f"Welcome to RunFree, {login_2U}!") 
+                break
+            elif username is None:
+                print("Username not found. Try again")
+                seconds(1)
+            elif user_pw is None:
+                print("Incorrect password. Try again")
+                seconds(1)
+        i -= 1    
     # Adding new user info to the "user" database
     elif login_1 == "N":
         print("Create account\n") 
@@ -76,7 +80,7 @@ while i > 0:
 
 # IF USER HAS NO RUNNING PLAN--------------------------------------------------------------------------------------------------------------------------
 
-if login_1U #doesnt have table:
+if login_1U: #doesnt have table:
     print("It seems you're new here! Let me introduce you to RunFree... \n")
     seconds(3)
     print("blah blah blah\n")
