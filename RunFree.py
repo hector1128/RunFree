@@ -32,7 +32,7 @@ i=1
 login_1=str(input("Let's get started! If you already have an account, type \"Y\". Otherwise, type \"N\" to get started\n"))
 
 reset = "N/A"
-# while loop to keep trying if user gets something wrong in the login
+# While loop to keep trying if user gets something wrong in the login
 while i > 0:
     if login_1 == "Y" or reset == "Y":
         login_1="N/A"
@@ -64,17 +64,24 @@ while i > 0:
         login_1U = input("Username: ")
         login_1P = input("Password: ")
         # Inserting new account input into "user" database
-        cur.execute('''
-                    INSERT INTO user (username) VALUES (?)
-                    ''', (login_1U,))
-        cur.execute('''
-                    INSERT INTO user (password) VALUES (?)
-                    ''', (login_1P,))
-        con.commit()
-        print("Successful login")
-        seconds(3)
-        # Back to beggining... 
-        reset = str(input("Type \"Y\" to go back to the log in.\n"))
+        # Added except if account already exists
+        try:
+            cur.execute('''
+                        INSERT INTO user (username) VALUES (?)
+                        ''', (login_1U,))
+            cur.execute('''
+                        INSERT INTO user (password) VALUES (?)
+                        ''', (login_1P,))
+            con.commit()
+            print("Successful login")
+            seconds(3)
+            # Back to beggining... 
+            reset = str(input("Type \"Y\" to go back to the log in.\n"))    
+        except sqlite3.IntegrityError:
+            print("Account already exists")
+            seconds(3)
+            # Back to beggining...
+            reset = str(input("Type \"Y\" to go back to the log in.\n"))
 
 # LOGIN SCREEN-----------------------------------------------------------------------------------------------------------------------------------------
 
